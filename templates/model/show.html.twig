@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Model{% endblock %}
+
+{% block body %}
+    <h1>Model</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ model.id }}</td>
+            </tr>
+            <tr>
+                <th>Num_model</th>
+                <td>{{ model.numModel }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ model.color }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ model.quantity }}</td>
+            </tr>
+            <tr>
+                <th>Create_date</th>
+                <td>{{ model.createDate ? model.createDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ model.image }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('model_index') }}">back to list</a>
+
+    <a href="{{ path('model_edit', {'id': model.id}) }}">edit</a>
+
+    {{ include('model/_delete_form.html.twig') }}
+{% endblock %}

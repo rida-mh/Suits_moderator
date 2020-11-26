@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Costume{% endblock %}
+
+{% block body %}
+    <h1>Costume</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ costume.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ costume.name }}</td>
+            </tr>
+            <tr>
+                <th>Create_date</th>
+                <td>{{ costume.createDate ? costume.createDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ costume.size }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('costume_index') }}">back to list</a>
+
+    <a href="{{ path('costume_edit', {'id': costume.id}) }}">edit</a>
+
+    {{ include('costume/_delete_form.html.twig') }}
+{% endblock %}

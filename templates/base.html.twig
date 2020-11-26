@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    {% block stylesheets %}{% endblock %}
+</head>
+
+
+<body>
+
+
+{% if app.user %}
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('user_index')}}">Users<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('company_index')}}">Company<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('model_index')}}">Model<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('costume_index')}}">Costume<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Reservation<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+
+            <span class="navbar-text">
+                You are logged in as {{ app.user.username }}
+        </span>
+
+            <li class="nav-item active">
+                <a href="{{ path('app_logout')}}" class="nav-link" style="color:#FF0000;" >Logout<span class="sr-only">(current)</span></a>
+            </li>
+
+        </div>
+    </nav>
+{% endif %}
+
+
+{% block body %}{% endblock %}
+{% block javascripts %}{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+
+<script>
+    $(document).ready( function () {
+        $('#table_id').DataTable(( {
+            "pageLength": 25
+        } ));
+    } );
+</script>
+
+
+<script>
+    $(function () {
+
+        // Header Master Checkbox Event
+        $("#masterCheck").on("click", function () {
+            if ($("input:checkbox").prop("checked")) {
+                $("input:checkbox[name='showips[]']").prop("checked", true);
+            } else {
+                $("input:checkbox[name='showips[]']").prop("checked", false);
+            }
+        });
+
+        // Check event on each table row checkbox
+        $("input:checkbox[name='showips[]']").on("change", function () {
+            var total_check_boxes = $("input:checkbox[name='showips[]']").length;
+            var total_checked_boxes = $("input:checkbox[name='showips[]']:checked").length;
+
+            // If all checked manually then check master checkbox
+            if (total_check_boxes === total_checked_boxes) {
+                $("#masterCheck").prop("checked", false);
+            }
+            else {
+                $("#masterCheck").prop("checked", true);
+            }
+        });
+    });
+</script>
+
+
+
+<script>
+    function getState(val) {
+        var category = $("#Category").val();
+        if(category && div) {
+            $.ajax({
+                type: "POST",
+                url: "get_products.php",
+                data:{"category": category},
+                success: function(data){
+                    $("#product-list").val(data);//producy-list is the id of another drop down.
+                }
+            });
+        }
+    }
+</script>
+
+<script>
+    function getState(val) {
+        var category = $("#Category").val();
+        if(category && div) {
+            $.ajax({
+                type: "POST",
+                url: "get_products.php",
+                data:{"category": category},
+                success: function(data){
+                    $("#product-list").val(data);//producy-list is the id of another drop down.
+                }
+            });
+        }
+    }
+</script>
+
+
+
+</body>
+</html>
+
+

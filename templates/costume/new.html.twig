@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Costume{% endblock %}
+
+{% block body %}
+    <h1>Create new Costume</h1>
+
+    {{ include('costume/_form.html.twig') }}
+
+    <a href="{{ path('costume_index') }}">back to list</a>
+{% endblock %}
