@@ -28,9 +28,14 @@
                 <td>{{ model.createDate ? model.createDate|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
             <tr>
-                <th>Image</th>
-                <td>{{ model.image }}</td>
+            <th>Images</th>
+            <td>
+            {% for image in model.images %}
+                <img class="fit-picture" src="{{asset('/uploads/' ~ image.name) }}" alt="Image" width="150">
+            {% endfor %}
+            </td>
             </tr>
+
         </tbody>
     </table>
 

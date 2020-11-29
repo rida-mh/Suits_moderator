@@ -5,13 +5,16 @@
 {% block body %}
     <h1>Costume index</h1>
 
-    <table class="table">
+    <table id="table_id" class="table table-striped table-bordered" width="100%">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Create_date</th>
-                <th>Size</th>
+                <th>numModel</th>
+                <th>color</th>
+                <th>quantity</th>
+
+                <th>createDate</th>
+                <th>size</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -19,8 +22,10 @@
         {% for costume in costumes %}
             <tr>
                 <td>{{ costume.id }}</td>
-                <td>{{ costume.name }}</td>
-                <td>{{ costume.createDate ? costume.createDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ costume.models.numModel }}</td>
+                <td>{{ costume.models.color }}</td>
+                <td>{{ costume.models.quantity }}</td>
+                <td>{{ costume.models.createDate|date('Y-m-d H:i:s')}}</td>
                 <td>{{ costume.size }}</td>
                 <td>
                     <a href="{{ path('costume_show', {'id': costume.id}) }}">show</a>

@@ -22,10 +22,6 @@ class Costume
      */
     private $name;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $create_date;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -54,17 +50,6 @@ class Costume
         return $this;
     }
 
-    public function getCreateDate(): ?\DateTimeInterface
-    {
-        return $this->create_date;
-    }
-
-    public function setCreateDate(\DateTimeInterface $create_date): self
-    {
-        $this->create_date = $create_date;
-
-        return $this;
-    }
 
     public function getSize(): ?string
     {

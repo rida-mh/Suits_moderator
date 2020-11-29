@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Costume;
 use App\Form\CostumeType;
+use App\Form\ModelType;
 use App\Repository\CostumeRepository;
+use App\Repository\ModelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +27,53 @@ class CostumeController extends AbstractController
         ]);
     }
 
+
+    /**
+     * @Route("/{nummodel}/add", name="costume_add", methods={"GET","POST"})
+     * @param CostumeRepository $costumeRepository
+     * @param ModelRepository $modelRepository
+     * @param $nummodel
+     * @return Response
+     */
+
+    public function add(Request $request, CostumeRepository $costumeRepository,ModelRepository $modelRepository, $nummodel): Response
+    {
+        $model = $modelRepository->find($nummodel);
+        $quantity = $model->getQuantity();
+        $date = date('m/d/Y h:i:s a', time());
+
+        if($request->get('addcostume') == 'Add'){
+            $costume = new Costume();
+            $sizerows = $request->get('sizerows');
+
+            $entityManager = $this->getDoctrine()->getManager();
+
+            foreach(explode("\n", $sizerows) as $sizerow) {
+                $sizerow = preg_replace("/[^a-zA-Z 0-9]+/", "", $sizerow );
+                $costume = new Costume($sizerow);
+                $costume->setSize($sizerow);
+                $costume->setModels($model);
+                $entityManager->persist($costume);
+
+                echo 'Saved with size '.$sizerow;
+
+            }
+            $entityManager->flush();
+            return $this->redirectToRoute('costume_index');
+
+
+        }
+
+        return $this->render('costume/add.html.twig', [
+            'model' => $model,
+            'quantity' => $quantity,
+        ]);
+
+
+    }
+
+
+
     /**
      * @Route("/new", name="costume_new", methods={"GET","POST"})
      */
@@ -33,6 +82,7 @@ class CostumeController extends AbstractController
         $costume = new Costume();
         $form = $this->createForm(CostumeType::class, $costume);
         $form->handleRequest($request);
+
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();

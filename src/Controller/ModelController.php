@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Images;
 use App\Entity\Model;
 use App\Form\ModelType;
+use App\Repository\ImagesRepository;
 use App\Repository\ModelRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,10 +20,12 @@ class ModelController extends AbstractController
     /**
      * @Route("/", name="model_index", methods={"GET"})
      */
-    public function index(ModelRepository $modelRepository): Response
+    public function index(ModelRepository $modelRepository,ImagesRepository $imageRepository): Response
     {
+        $models = $modelRepository->findAll();
+        dump($models);
         return $this->render('model/index.html.twig', [
-            'models' => $modelRepository->findAll(),
+            'models' => $models,
         ]);
     }
 
@@ -35,11 +39,33 @@ class ModelController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $images = $form->get('images')->getData();
+            // On boucle sur les images
+            foreach($images as $image){
+                // On génère un nouveau nom de fichier
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                // On copie le fichier dans le dossier uploads
+                $image->move(
+                    $this->getParameter('images_directory'),
+                    $fichier
+                );
+
+                // On crée l'image dans la base de données
+                $img = new Images();
+                $img->setName($fichier);
+                $model->addImage($img);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($model);
             $entityManager->flush();
 
-            return $this->redirectToRoute('model_index');
+
+            $nummodel = $form->get('num_model')->getData();
+              $numMo = $model->getId();
+              return $this->redirectToRoute('costume_add', ['nummodel' => $numMo]);
+
+
         }
 
         return $this->render('model/new.html.twig', [

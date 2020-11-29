@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Costume index{% endblock %}
+
+{% block body %}
+    <h1>Costume index</h1>
+<form  target="_blank" method="post" action="{{path('costume_add', {'nummodel': model.id}) }}" name="costumead" >
+    <br>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Company</th>
+            <th>num_model</th>
+            <th>color</th>
+            <th>quantity</th>
+            <th>Size</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ model.Companies.name }}</td>
+                <td>{{ model.NumModel }}</td>
+                <td>{{ model.color }}</td>
+                <td>{{ model.quantity }}</td>
+
+                <td>
+                    <textarea  name="sizerows" class="form-control" id="exampleFormControlTextarea1"  rows="5" cols="1"></textarea>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <input class="btn btn-primary" type="submit" name="addcostume" value="Add">
+
+</form>
+{% endblock %}

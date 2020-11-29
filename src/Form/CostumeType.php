@@ -21,11 +21,6 @@ class CostumeType extends AbstractType
             ->add('models',EntityType::class,['class' => Model::class,
                 'choice_label' => 'num_model',
                 'label' => 'models'])
-            ->add('Create_date',DateType::class,array(
-            'required' => false,
-            'widget' => 'single_text',
-            'empty_data' =>''
-        ))
             ;
     }
 
