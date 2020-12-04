@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation{% endblock %}
+
+{% block body %}
+    <h1>Reservation</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reservation.id }}</td>
+            </tr>
+            <tr>
+                <th>Name_res</th>
+                <td>{{ reservation.nameRes }}</td>
+            </tr>
+            <tr>
+                <th>Create_date</th>
+                <td>{{ reservation.createDate ? reservation.createDate|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Size</th>
+                <td>{{ reservation.size }}</td>
+            </tr>
+            <tr>
+                <th>Color</th>
+                <td>{{ reservation.color }}</td>
+            </tr>
+            <tr>
+                <th>Size_pants</th>
+                <td>{{ reservation.sizePants }}</td>
+            </tr>
+            <tr>
+                <th>Length_pant</th>
+                <td>{{ reservation.lengthPant }}</td>
+            </tr>
+            <tr>
+                <th>Size_jacket</th>
+                <td>{{ reservation.sizeJacket }}</td>
+            </tr>
+            <tr>
+                <th>Size_shoe</th>
+                <td>{{ reservation.sizeShoe }}</td>
+            </tr>
+            <tr>
+                <th>Color_shoe</th>
+                <td>{{ reservation.colorShoe }}</td>
+            </tr>
+            <tr>
+                <th>Type_crav_pap</th>
+                <td>{{ reservation.typeCravPap ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Num_tele</th>
+                <td>{{ reservation.numTele }}</td>
+            </tr>
+            <tr>
+                <th>Name_client</th>
+                <td>{{ reservation.nameClient }}</td>
+            </tr>
+            <tr>
+                <th>Id_cart</th>
+                <td>{{ reservation.idCart }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ reservation.price }}</td>
+            </tr>
+            <tr>
+                <th>Advanced</th>
+                <td>{{ reservation.advanced }}</td>
+            </tr>
+            <tr>
+                <th>Rest</th>
+                <td>{{ reservation.rest }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ reservation.note }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('reservation_index') }}">back to list</a>
+
+    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
+
+    {{ include('reservation/_delete_form.html.twig') }}
+{% endblock %}

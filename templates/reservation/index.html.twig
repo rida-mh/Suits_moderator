@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation index{% endblock %}
+
+{% block body %}
+    <h1>Reservation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name_res</th>
+                <th>Create_date</th>
+                <th>Size</th>
+                <th>Color</th>
+                <th>Size_pants</th>
+                <th>Length_pant</th>
+                <th>Size_jacket</th>
+                <th>Size_shoe</th>
+                <th>Color_shoe</th>
+                <th>Type_crav_pap</th>
+                <th>Num_tele</th>
+                <th>Name_client</th>
+                <th>Id_cart</th>
+                <th>Price</th>
+                <th>Advanced</th>
+                <th>Rest</th>
+                <th>Note</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td>{{ reservation.id }}</td>
+                <td>{{ reservation.nameRes }}</td>
+                <td>{{ reservation.createDate ? reservation.createDate|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ reservation.size }}</td>
+                <td>{{ reservation.color }}</td>
+                <td>{{ reservation.sizePants }}</td>
+                <td>{{ reservation.lengthPant }}</td>
+                <td>{{ reservation.sizeJacket }}</td>
+                <td>{{ reservation.sizeShoe }}</td>
+                <td>{{ reservation.colorShoe }}</td>
+                <td>{{ reservation.typeCravPap ? 'Yes' : 'No' }}</td>
+                <td>{{ reservation.numTele }}</td>
+                <td>{{ reservation.nameClient }}</td>
+                <td>{{ reservation.idCart }}</td>
+                <td>{{ reservation.price }}</td>
+                <td>{{ reservation.advanced }}</td>
+                <td>{{ reservation.rest }}</td>
+                <td>{{ reservation.note }}</td>
+                <td>
+                    <a href="{{ path('reservation_show', {'id': reservation.id}) }}">show</a>
+                    <a href="{{ path('reservation_edit', {'id': reservation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="19">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('reservation_new') }}">Create new</a>
+{% endblock %}
