@@ -1,2 +1,2 @@
 # Suits_moderator
- A panel to moderat suits and their reservation
+ A panel to manage suits and  reservation
